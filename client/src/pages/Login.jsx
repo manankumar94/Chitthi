@@ -44,8 +44,7 @@ function Login() {
       
       try {
         const { data } = await axios.post(loginRoute, { username, password });
-        // console.log(username   + "   "+password);
-        // console.log("Staus of Data :"+data.status);
+
 
         if (!data.status) {
           toast.error(data.msg, toastOptions);
