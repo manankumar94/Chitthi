@@ -5,7 +5,7 @@ import Logo from '../assets/logo.jpg';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
-import { registerRoute } from '../utils/apiRoutes';
+import { registerRoute } from '../utils/apiRoutes.js';
 
 function Register() {
   const navigate = useNavigate();
@@ -34,7 +34,7 @@ function Register() {
   };
 
   useEffect(() => {
-    if (localStorage.getItem('chat-app-user')) {
+    if (localStorage.getItem('Chitthi-User')) {
       navigate('/');
     }
   }, [navigate]);
@@ -61,7 +61,7 @@ function Register() {
   };
 
   const handleValidation = () => {
-    const { username, password, confirmPassword } = values;
+    const { username, password, confirmPassword, email } = values;
     if (password !== confirmPassword) {
       toast.error('Password and Confirm Password should match.', toastOptions);
       return false;
@@ -71,7 +71,10 @@ function Register() {
     } else if (password.length < 5) {
       toast.error('Password must be longer than 4 characters.', toastOptions);
       return false;
-    }
+    } else if (email ==="") {
+      toast.error('Email is Required', toastOptions);
+      return false;
+    } 
     return true;
   };
 
