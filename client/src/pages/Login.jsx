@@ -41,15 +41,14 @@ function Login() {
     event.preventDefault();
     if (handleValidation()) {
       const { username, password } = values;
-      
+
       try {
         const { data } = await axios.post(loginRoute, { username, password });
 
-
         if (!data.status) {
           toast.error(data.msg, toastOptions);
-        } 
-        if(data.status) {
+        }
+        if (data.status) {
           localStorage.setItem('Chitthi-User', JSON.stringify(data.user));
           navigate('/');
         }
@@ -61,13 +60,13 @@ function Login() {
 
   const handleValidation = () => {
     const { username, password } = values;
-    if (username ==="") {
+    if (username === '') {
       toast.error('Credentials are Required.', toastOptions);
       return false;
-    } else if (password=== "") {
+    } else if (password === '') {
       toast.error('Credentials are Required.', toastOptions);
       return false;
-    } 
+    }
     return true;
   };
 
@@ -77,116 +76,128 @@ function Login() {
 
   return (
     <>
-      <FormContainer>
-        <form onSubmit={handleSubmit}>
-          <div className="brand">
-            <img src={Logo} alt="Logo" />
-            <h1>Chitthi</h1>
-          </div>
-          <input
-            type="text"
-            placeholder="Username"
-            name="username"
-            onChange={handleChange}
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            name="password"
-            onChange={handleChange}
-          />
-          <button type="submit">Login</button>
-          <span>
-            Don't have an account? <Link to="/register">Register</Link>
-          </span>
-        </form>
-      </FormContainer>
+      <Container>
+        <FormContainer>
+          <form onSubmit={handleSubmit}>
+            <div className="brand">
+              <img src={Logo} alt="Logo" />
+              <h1>Chitthi</h1>
+            </div>
+            <input
+              type="text"
+              placeholder="Username"
+              name="username"
+              onChange={handleChange}
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              name="password"
+              onChange={handleChange}
+            />
+            <button type="submit">Login</button>
+            <span>
+              Don't have an account? <Link to="/register">Register</Link>
+            </span>
+          </form>
+        </FormContainer>
+      </Container>
       <ToastContainer />
     </>
   );
 }
 
-const FormContainer = styled.div`
-  height: 100vh;
-  width: 100vw;
+const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #eaf5da;
+  height: 100vh;
+  width: 100vw;
+  background-color: #131324; /* Matches the background from SetAvatar */
+`;
+
+const FormContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(19, 19, 36, 0.9); /* Semi-transparent dark color */
+  border-radius: 1.5rem;
+  padding: 3rem 6rem;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5); /* Subtle shadow for depth */
+
   form {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    background-color: #fdfde7;
-    border-radius: 2.5rem;
-    padding: 1rem 9rem;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    gap: 1.5rem;
 
     .brand {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 1.5rem;
+      gap: 1rem;
 
       img {
         height: 10rem;
         width: 10rem;
         border-radius: 50%;
         object-fit: cover;
-        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 6px 15px rgba(255, 255, 255, 0.2); /* Soft glow around logo */
       }
 
       h1 {
-        color: #34495e;
-        font-size: 2.5rem;
+        color: #ffffff; /* White text to match the dark theme */
+        font-size: 2rem;
         text-transform: capitalize;
         margin: 0;
         font-family: 'Chitthi', sans-serif;
-        font-weight: 500;
+        font-weight: 600;
       }
     }
 
     input {
-      background-color: #f6f7f9;
+      background-color: #262636; /* Slightly lighter than background */
+      color: #ffffff;
       padding: 1rem;
-      border: 0.1rem solid #7f8c8d;
+      border: 0.1rem solid #4e4e7e; /* Subtle border */
       border-radius: 0.7rem;
-      font-size: 1.1rem;
+      font-size: 1rem;
       transition: 0.3s ease;
 
       &::placeholder {
-        color: #95a5a6;
+        color: #a3a3bf; /* Muted text for placeholders */
       }
 
       &:focus {
-        border-color: #3498db;
+        border-color: #6c63ff; /* Accent color for focus */
         outline: none;
+        box-shadow: 0 0 5px #6c63ff;
       }
     }
 
     button {
-      background-color: #3498db;
+      background-color: #6c63ff;
       color: white;
-      padding: 1.2rem;
+      padding: 1rem;
       border: none;
       font-weight: bold;
-      font-size: 1.3rem;
+      font-size: 1rem;
       border-radius: 0.7rem;
       text-transform: uppercase;
       transition: 0.3s ease;
       cursor: pointer;
 
       &:hover {
-        background-color: #2980b9;
+        background-color: #504ed7; /* Slightly darker on hover */
       }
     }
 
     span {
       text-align: center;
       font-size: 1rem;
+      color: #ffffff; /* Matches the overall theme */
 
       a {
-        color: #3498db;
+        color: #6c63ff; /* Accent color for links */
         text-decoration: none;
         font-weight: bold;
 
@@ -197,5 +208,6 @@ const FormContainer = styled.div`
     }
   }
 `;
+
 
 export default Login;
